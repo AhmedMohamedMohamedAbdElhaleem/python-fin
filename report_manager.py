@@ -74,17 +74,17 @@ class ReportManager:
             print(f"{category}: Income = {data['income']:.2f}, Expense = {data['expense']:.2f}")
         print("=============================")
 
-    #  Spending trends
+
     def spending_trends(self):
         transactions = self._get_transactions()
         if not transactions:
             print(" No transactions found.")
             return
 
-        # Group by month
+
         monthly_expense = defaultdict(float)
         for t in transactions:
-            month = t["date"][:7]  # YYYY-MM
+            month = t["date"][:7]  
             if t["type"] == "expense":
                 monthly_expense[month] += t["amount"]
 
@@ -93,6 +93,93 @@ class ReportManager:
             print(f"{month}: {total:.2f}")
         print("=====================================")
 
+    from decimal import Decimal, InvalidOperation
 
+    def ascii_visualization(self):
+        """
+        Display ASCII-based charts showing:
+        1. Income vs Expense comparison bar
+        2. Monthly Expense Trend
+        """
+        transactions = self._get_transactions()
+        if not transactions:
+            print(" No transactions found.")
+            return
+
+        # Helper function to convert safely to Decimal
+        def to_dec(value):
+            try:
+                return Decimal(str(value))
+            except (InvalidOperation, ValueError):
+                return Decimal("0")
+
+        # --- Income vs Expense Summary ---
+        total_income = sum(to_dec(t["amount"]) for t in transactions if t["type"] == "income")
+        total_expense = sum(to_dec(t["amount"]) for t in transactions if t["type"] == "expense")
+
+        print("\n=== ASCII VISUALIZATION: Income vs Expense ===")
+        bar_width = 40
+        max_val = max(total_income, total_expense, Decimal("1"))
+
+        def make_bar(value):
+            length = int((value / max_val) * bar_width)
+            return "#" * length + " " * (bar_width - length)
+
+        print(f"Income : {make_bar(total_income)} ({total_income:.2f})")
+        print(f"Expense: {make_bar(total_expense)} ({total_expense:.2f})")
+
+        # --- Monthly Expense Trend ---
+        monthly = {}
+        for t in transactions:
+            if t["type"] == "expense":
+                date = t["date"]
+                month = date[:7]  # YYYY-MM
+                monthly[month] = monthly.get(month, Decimal("0")) + to_dec(t["amount"])
+
+        if monthly:
+            print("\n=== Monthly Expense Trend (YYYY-MM) ===")
+            max_month = max(monthly.values()) or Decimal("1")
+            for mon, val in sorted(monthly.items()):
+                length = int((val / max_month) * 30)
+                bar = "*" * length
+                print(f"{mon}: {bar} ({val:.2f})")
+        else:
+            print("\nNo expense transactions to show monthly trend.")
+
+        print("============================================\n")
+
+            # 🔹 ASCII Visualization Feature
+    def ascii_visualization(self):
+        """
+        Display an ASCII bar chart of monthly expenses and incomes.
+        """
+        transactions = self._get_transactions()
+        if not transactions:
+            print(" No transactions found.")
+            return
+
+
+        monthly_data = {}
+        for t in transactions:
+            month = t["date"][:7] 
+            if month not in monthly_data:
+                monthly_data[month] = {"income": 0, "expense": 0}
+            monthly_data[month][t["type"]] += t["amount"]
+
+
+        sorted_months = sorted(monthly_data.keys())
+
+        print("\n=== 📊 ASCII DATA VISUALIZATION ===")
+        for month in sorted_months:
+            income = monthly_data[month]["income"]
+            expense = monthly_data[month]["expense"]
+
+            income_bar = "█" * int(income / 10) 
+            expense_bar = "░" * int(expense / 10)
+
+            print(f"{month}:")
+            print(f"  Income : {income_bar} {income:.2f}")
+            print(f"  Expense: {expense_bar} {expense:.2f}")
+            print("-" * 60)
 
         

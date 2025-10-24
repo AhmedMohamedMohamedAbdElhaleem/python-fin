@@ -88,6 +88,7 @@ def report_menu(rm):
         print("2. Monthly report")
         print("3. Category breakdown")
         print("4. Spending trends")
+        print("5. ASCII Visualization")     
         print("0. Back to main menu")
 
         choice = input("Choose: ").strip()
@@ -100,6 +101,8 @@ def report_menu(rm):
             rm.category_breakdown()
         elif choice == "4":
             rm.spending_trends()
+        elif choice == "5":
+            rm.ascii_visualization()   
         elif choice == "0":
             break
         else:

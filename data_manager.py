@@ -5,7 +5,7 @@ import shutil
 from datetime import datetime
 
 class DataManager:
-    def __init__(self, file_path="/home/ahmed/Desktop/py-project/backup/users.json", backup_dir="/home/ahmed/Desktop/py-project/backup"):
+    def __init__(self, file_path="data/users.json", backup_dir="data/backup"):
         self.file_path = file_path
         self.backup_dir = backup_dir
         os.makedirs(os.path.dirname(self.file_path), exist_ok=True)
