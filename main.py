@@ -2,10 +2,12 @@
 
 from user_manager import UserManager
 from transaction_manager import TransactionManager
+from report_manager import ReportManager
 
 def main_menu():
     um = UserManager()
     tm = TransactionManager(um)
+    rm = ReportManager(um)
 
     while True:
         print("\n===  PERSONAL FINANCE MANAGER ===")
@@ -13,6 +15,7 @@ def main_menu():
         print("2. Login")
         print("3. Show current user")
         print("4. Transactions menu")
+        print("5. Reports menu")
         print("0. Exit")
 
         choice = input("Choose an option: ").strip()
@@ -25,8 +28,10 @@ def main_menu():
             um.show_current_user()
         elif choice == "4":
             transaction_menu(tm)
+        elif choice == "5":
+            report_menu(rm)
         elif choice == "0":
-            print("thanks - Goodbye!")
+            print(" Goodbye!")
             break
         else:
             print(" Invalid choice.")
@@ -55,5 +60,31 @@ def transaction_menu(tm):
         else:
             print(" Invalid choice.")
 
+def report_menu(rm):
+    while True:
+        print("\n---  REPORTS MENU ---")
+        print("1. Dashboard summary")
+        print("2. Monthly report")
+        print("3. Category breakdown")
+        print("4. Spending trends")
+        print("0. Back to main menu")
+
+        choice = input("Choose: ").strip()
+
+        if choice == "1":
+            rm.dashboard_summary()
+        elif choice == "2":
+            rm.monthly_report()
+        elif choice == "3":
+            rm.category_breakdown()
+        elif choice == "4":
+            rm.spending_trends()
+        elif choice == "0":
+            break
+        else:
+            print(" Invalid choice.")
+
 if __name__ == "__main__":
     main_menu()
+
+
