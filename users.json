@@ -26,6 +26,14 @@
                 "category": "food",
                 "note": "monthly",
                 "date": "2025-10-1"
+            },
+            {
+                "id": "f884d295-d8f5-4e55-8cdd-b7897e80463a",
+                "type": "expense",
+                "amount": 500.0,
+                "category": "other",
+                "note": "other",
+                "date": "2025-10-24"
             }
         ]
     },
