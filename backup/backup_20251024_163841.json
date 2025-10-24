@@ -1,0 +1,21 @@
+[
+    {
+        "username": "ahmed",
+        "pin": "1111",
+        "transactions": [
+            {
+                "id": "88e5afe0-e951-4f6d-9ddf-a38aa49ae181",
+                "type": "income",
+                "amount": 9000.0,
+                "category": "salary",
+                "note": "monthly",
+                "date": "2025-10-01"
+            }
+        ]
+    },
+    {
+        "username": "ammar",
+        "pin": "2222",
+        "transactions": []
+    }
+]

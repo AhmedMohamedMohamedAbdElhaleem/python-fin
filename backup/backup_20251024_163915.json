@@ -1,0 +1,29 @@
+[
+    {
+        "username": "ahmed",
+        "pin": "1111",
+        "transactions": [
+            {
+                "id": "88e5afe0-e951-4f6d-9ddf-a38aa49ae181",
+                "type": "income",
+                "amount": 9000.0,
+                "category": "salary",
+                "note": "monthly",
+                "date": "2025-10-01"
+            },
+            {
+                "id": "614f3e25-c39a-4be2-990c-0b8313dc0bf4",
+                "type": "income",
+                "amount": 5000.0,
+                "category": "bouns",
+                "note": "bouns",
+                "date": "2025-10-15"
+            }
+        ]
+    },
+    {
+        "username": "ammar",
+        "pin": "2222",
+        "transactions": []
+    }
+]

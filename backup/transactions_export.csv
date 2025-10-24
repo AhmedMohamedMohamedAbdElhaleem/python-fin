@@ -1,0 +1,5 @@
+username,type,amount,category,date,note
+ahmed,income,9000.0,salary,2025-10-01,monthly
+ahmed,income,5000.0,bouns,2025-10-15,bouns
+ahmed,expense,6000.0,food,2025-10-24,monthly
+ahmed,expense,2000.0,rent,2025-10-24,monthly

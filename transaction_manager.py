@@ -13,13 +13,13 @@ class TransactionManager:
 
         t_type = input("Enter type (income/expense): ").strip().lower()
         if t_type not in ["income", "expense"]:
-            print("Invalid type.")
+            print(" Invalid type.")
             return
 
         try:
             amount = float(input("Enter amount: "))
         except ValueError:
-            print("Invalid amount.")
+            print(" Invalid amount.")
             return
 
         category = input("Enter category (e.g. Food, Salary, Rent): ").strip()
@@ -37,18 +37,22 @@ class TransactionManager:
         }
 
         self.user_manager.current_user["transactions"].append(transaction)
-        self.user_manager.save_users()
+        # self.user_manager.save_users()
+        
+        self.user_manager.save()  # Save after adding transaction
+
+
         print(f" {t_type.capitalize()} added successfully!")
 
     # View all transactions
     def view_transactions(self):
         if not self.user_manager.current_user:
-            print("Please login first.")
+            print(" Please login first.")
             return
 
         transactions = self.user_manager.current_user["transactions"]
         if not transactions:
-            print("📭 No transactions found.")
+            print(" No transactions found.")
             return
 
         print(f"\n Transactions for {self.user_manager.current_user['username']}:")
@@ -99,13 +103,17 @@ class TransactionManager:
         if new_date:
             transaction["date"] = new_date
 
-        self.user_manager.save_users()
-        print(" Transaction updated successfully!")
+        # self.user_manager.save_users()
+
+        self.user_manager.save()  # Save after editing transaction
+
+
+        print("Transaction updated successfully!")
 
     # Delete transaction with confirmation
     def delete_transaction(self):
         if not self.user_manager.current_user:
-            print("Please login first.")
+            print(" Please login first.")
             return
 
         transactions = self.user_manager.current_user["transactions"]
@@ -116,7 +124,7 @@ class TransactionManager:
         self.view_transactions()
         choice = input("Enter transaction number to delete: ").strip()
         if not choice.isdigit() or not (1 <= int(choice) <= len(transactions)):
-            print("Invalid choice.")
+            print(" Invalid choice.")
             return
 
         index = int(choice) - 1
@@ -125,7 +133,14 @@ class TransactionManager:
         confirm = input(f" Are you sure you want to delete '{t['category']}' ({t['amount']})? (y/n): ").strip().lower()
         if confirm == "y":
             del transactions[index]
-            self.user_manager.save_users()
-            print(" Transaction deleted successfully.")
+            # self.user_manager.save_users()
+
+            self.user_manager.save()  # Save after deleting transaction
+
+
+
+            print("Transaction deleted successfully.")
         else:
             print(" Deletion cancelled.")
+
+

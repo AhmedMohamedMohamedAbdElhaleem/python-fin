@@ -1,95 +1,55 @@
-import json
-import os
+
+
+
+from getpass import getpass
+from data_manager import DataManager
 
 class UserManager:
-    def __init__(self, filename="users.json"):
-        self.filename = filename
-        self.users = self.load_users()
+    def __init__(self):
+        self.data_manager = DataManager()
+        self.users = self.data_manager.load_data()
         self.current_user = None
 
-    # Load users from file
-    def load_users(self):
-        if not os.path.exists(self.filename):
-            return []
-        with open(self.filename, "r") as f:
-            try:
-                return json.load(f)
-            except json.JSONDecodeError:
-                return []
+    def save(self):
+        self.data_manager.save_data(self.users)
 
-    # Save users to file
-    def save_users(self):
-        with open(self.filename, "w") as f:
-            json.dump(self.users, f, indent=4)
-
-    # Register new user
     def register_user(self):
         username = input("Enter new username: ").strip()
-        pin = input("Enter 4-digit PIN: ").strip()
+        pin = getpass("Set 4-digit PIN: ").strip()
 
-        if not pin.isdigit() or len(pin) != 4:
-            print("PIN must be 4 digits only.")
+        if any(u["username"] == username for u in self.users):
+            print("Username already exists.")
             return
 
-        for user in self.users:
-            if user["username"] == username:
-                print(" Username already exists.")
-                return
+        if len(pin) != 4 or not pin.isdigit():
+            print("PIN must be 4 digits.")
+            return
 
         new_user = {
             "username": username,
             "pin": pin,
             "transactions": []
         }
-
         self.users.append(new_user)
-        self.save_users()
-        print(f"User '{username}' registered successfully!")
+        self.save()
+        print(" User registered successfully!")
 
-    # Login user
     def login(self):
         username = input("Enter username: ").strip()
-        pin = input("Enter PIN: ").strip()
+        pin = getpass("Enter PIN: ").strip()
 
-        for user in self.users:
-            if user["username"] == username and user["pin"] == pin:
-                self.current_user = user
-                print(f"Login successful. Welcome {username}!")
-                return True
+        for u in self.users:
+            if u["username"] == username and u["pin"] == pin:
+                self.current_user = u
+                print(f"Welcome back, {username}!")
+                return
+        print(" Invalid credentials.")
 
-        print(" Invalid username or PIN.")
-        return False
-
-    # View all users
-    def view_users(self):
-        if not self.users:
-            print(" No users found.")
-            return
-        print("\n Registered Users:")
-        for i, user in enumerate(self.users, start=1):
-            print(f"{i}. {user['username']}")
-
-    # Switch user
-    def switch_user(self):
-        self.view_users()
-        choice = input("Enter user number to switch: ").strip()
-        if not choice.isdigit():
-            print(" Invalid input.")
-            return
-        index = int(choice) - 1
-        if 0 <= index < len(self.users):
-            self.current_user = self.users[index]
-            print(f" Switched to user: {self.current_user['username']}")
-        else:
-            print(" Invalid user number.")
-
-    # Show current user
     def show_current_user(self):
         if self.current_user:
-            print(f" Current user: {self.current_user['username']}")
+            print(f"Current user: {self.current_user['username']}")
         else:
-            print(" No user currently logged in.")
+            print("No user logged in.")
 
 
-
-
+            

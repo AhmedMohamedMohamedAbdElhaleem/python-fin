@@ -5,6 +5,8 @@ from transaction_manager import TransactionManager
 from report_manager import ReportManager
 from search_filter_manager import SearchFilterManager
 
+
+
 def main_menu():
     um = UserManager()
     tm = TransactionManager(um)
@@ -12,13 +14,16 @@ def main_menu():
     sf = SearchFilterManager(um)
 
     while True:
-        print("\n===  PERSONAL FINANCE MANAGER ===")
+        print("\n=== PERSONAL FINANCE MANAGER ===")
         print("1. Register new user")
         print("2. Login")
         print("3. Show current user")
-        print("4. Transactions menu")
-        print("5. Reports menu")
-        print("6. Search & Filter menu")
+        print("4. View all users")           
+        print("5. Switch user (re-login)")    
+        print("6. Transactions menu")
+        print("7. Reports menu")
+        print("8. Search & Filter menu")
+        print("9. Export to CSV")             
         print("0. Exit")
 
         choice = input("Choose an option: ").strip()
@@ -29,17 +34,28 @@ def main_menu():
             um.login()
         elif choice == "3":
             um.show_current_user()
-        elif choice == "4":
-            transaction_menu(tm)
-        elif choice == "5":
-            report_menu(rm)
+        elif choice == "4":                   
+            print("\n Registered Users:")
+            for i, u in enumerate(um.users, 1):
+                print(f"{i}. {u['username']}")
+        elif choice == "5":                  
+            um.login()
         elif choice == "6":
+            transaction_menu(tm)
+        elif choice == "7":
+            report_menu(rm)
+        elif choice == "8":
             search_filter_menu(sf)
+        elif choice == "9":                   
+            um.data_manager.export_to_csv(um.users)
         elif choice == "0":
             print(" Goodbye!")
             break
         else:
             print("Invalid choice.")
+
+
+
 
 def transaction_menu(tm):
     while True:
@@ -116,3 +132,4 @@ def search_filter_menu(sf):
 if __name__ == "__main__":
     main_menu()
 
+    
