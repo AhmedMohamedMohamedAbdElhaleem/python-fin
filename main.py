@@ -1,10 +1,8 @@
-
-
 from user_manager import UserManager
 from transaction_manager import TransactionManager
 from report_manager import ReportManager
 from search_filter_manager import SearchFilterManager
-
+from savings_goal_manager import SavingsGoalManager
 
 
 def main_menu():
@@ -12,18 +10,20 @@ def main_menu():
     tm = TransactionManager(um)
     rm = ReportManager(um)
     sf = SearchFilterManager(um)
+    sg = SavingsGoalManager(um)
 
     while True:
         print("\n=== PERSONAL FINANCE MANAGER ===")
         print("1. Register new user")
         print("2. Login")
         print("3. Show current user")
-        print("4. View all users")           
-        print("5. Switch user (re-login)")    
+        print("4. View all users")
+        print("5. Switch user (re-login)")
         print("6. Transactions menu")
         print("7. Reports menu")
         print("8. Search & Filter menu")
-        print("9. Export to CSV")             
+        print("9. Export to CSV")
+        print("10. Savings Goals")
         print("0. Exit")
 
         choice = input("Choose an option: ").strip()
@@ -34,11 +34,11 @@ def main_menu():
             um.login()
         elif choice == "3":
             um.show_current_user()
-        elif choice == "4":                   
+        elif choice == "4":
             print("\n Registered Users:")
             for i, u in enumerate(um.users, 1):
                 print(f"{i}. {u['username']}")
-        elif choice == "5":                  
+        elif choice == "5":
             um.login()
         elif choice == "6":
             transaction_menu(tm)
@@ -46,8 +46,10 @@ def main_menu():
             report_menu(rm)
         elif choice == "8":
             search_filter_menu(sf)
-        elif choice == "9":                   
+        elif choice == "9":
             um.data_manager.export_to_csv(um.users)
+        elif choice == "10":
+            savings_menu(sg)
         elif choice == "0":
             print(" Goodbye!")
             break
@@ -55,11 +57,9 @@ def main_menu():
             print("Invalid choice.")
 
 
-
-
 def transaction_menu(tm):
     while True:
-        print("\n---  TRANSACTIONS MENU ---")
+        print("\n--- TRANSACTIONS MENU ---")
         print("1. Add income/expense")
         print("2. View all transactions")
         print("3. Edit transaction")
@@ -81,6 +81,7 @@ def transaction_menu(tm):
         else:
             print(" Invalid choice.")
 
+
 def report_menu(rm):
     while True:
         print("\n--- REPORTS MENU ---")
@@ -88,7 +89,7 @@ def report_menu(rm):
         print("2. Monthly report")
         print("3. Category breakdown")
         print("4. Spending trends")
-        print("5. ASCII Visualization")     
+        print("5. ASCII Visualization")
         print("0. Back to main menu")
 
         choice = input("Choose: ").strip()
@@ -102,15 +103,16 @@ def report_menu(rm):
         elif choice == "4":
             rm.spending_trends()
         elif choice == "5":
-            rm.ascii_visualization()   
+            rm.ascii_visualization()
         elif choice == "0":
             break
         else:
             print("Invalid choice.")
 
+
 def search_filter_menu(sf):
     while True:
-        print("\n---  SEARCH & FILTER MENU ---")
+        print("\n--- SEARCH & FILTER MENU ---")
         print("1. Search by date range")
         print("2. Filter by category")
         print("3. Filter by amount range")
@@ -132,7 +134,33 @@ def search_filter_menu(sf):
         else:
             print("Invalid choice.")
 
+
+def savings_menu(sg):
+    while True:
+        print("\n--- SAVINGS GOALS MENU ---")
+        print("1. Add goal")
+        print("2. View goals")
+        print("3. Allocate amount to goal")
+        print("4. Edit goal")
+        print("5. Delete goal")
+        print("0. Back to main menu")
+
+        c = input("Choose: ").strip()
+        if c == "1":
+            sg.add_goal()
+        elif c == "2":
+            sg.view_goals()
+        elif c == "3":
+            sg.add_saved_amount()
+        elif c == "4":
+            sg.edit_goal()
+        elif c == "5":
+            sg.delete_goal()
+        elif c == "0":
+            break
+        else:
+            print("Invalid choice.")
+
+
 if __name__ == "__main__":
     main_menu()
-
-    
