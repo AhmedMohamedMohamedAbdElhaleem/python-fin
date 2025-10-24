@@ -149,37 +149,4 @@ class ReportManager:
         print("============================================\n")
 
             # 🔹 ASCII Visualization Feature
-    def ascii_visualization(self):
-        """
-        Display an ASCII bar chart of monthly expenses and incomes.
-        """
-        transactions = self._get_transactions()
-        if not transactions:
-            print(" No transactions found.")
-            return
-
-
-        monthly_data = {}
-        for t in transactions:
-            month = t["date"][:7] 
-            if month not in monthly_data:
-                monthly_data[month] = {"income": 0, "expense": 0}
-            monthly_data[month][t["type"]] += t["amount"]
-
-
-        sorted_months = sorted(monthly_data.keys())
-
-        print("\n=== 📊 ASCII DATA VISUALIZATION ===")
-        for month in sorted_months:
-            income = monthly_data[month]["income"]
-            expense = monthly_data[month]["expense"]
-
-            income_bar = "█" * int(income / 10) 
-            expense_bar = "░" * int(expense / 10)
-
-            print(f"{month}:")
-            print(f"  Income : {income_bar} {income:.2f}")
-            print(f"  Expense: {expense_bar} {expense:.2f}")
-            print("-" * 60)
-
-        
+    
