@@ -2,11 +2,41 @@
     {
         "username": "ahmed",
         "pin": "1111",
-        "transactions": []
+        "transactions": [
+            {
+                "id": "533f9584-1d67-4ea2-acd0-977dd49f9075",
+                "type": "income",
+                "amount": 8000.0,
+                "category": "salary",
+                "note": "monthly",
+                "date": "2025-10-24"
+            },
+            {
+                "id": "42e0a659-c9c2-4c39-971f-21777e707da3",
+                "type": "expense",
+                "amount": 2000.0,
+                "category": "rent",
+                "note": "monthly",
+                "date": "2025-10-01"
+            },
+            {
+                "id": "a4820678-cec5-469f-bd26-3f9165ba4829",
+                "type": "expense",
+                "amount": 5000.0,
+                "category": "food",
+                "note": "monthly",
+                "date": "2025-10-1"
+            }
+        ]
     },
     {
         "username": "ammar",
         "pin": "2222",
+        "transactions": []
+    },
+    {
+        "username": "ali",
+        "pin": "5555",
         "transactions": []
     }
 ]
