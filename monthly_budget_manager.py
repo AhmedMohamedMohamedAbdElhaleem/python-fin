@@ -94,12 +94,14 @@ class MonthlyBudgetManager:
         transactions = self.user_manager.current_user.get("transactions", [])
         total_spent = Decimal("0")
         for t in transactions:
-            if t["type"] == "expense" and t["date"].startswith(month):
-                total_spent += self._to_decimal(t["amount"])
+            if t.get("type") == "expense" and t.get("date", "").startswith(month):
+                total_spent += self._to_decimal(t.get("amount", "0"))
 
         remaining = budget - total_spent
-        print(f"\n=== Monthly Budget Status for {month} ===")
+        pct_used = (total_spent / budget * Decimal("100")) if budget > 0 else Decimal("0")
+
+        print(f"\n=== Monthly budget for {month} ===")
         print(f"Budget: {budget:.2f}")
         print(f"Spent: {total_spent:.2f}")
         print(f"Remaining: {remaining:.2f}")
-        print("==========================\n")
+        print(f"Percent used: {pct_used:.2f}%")

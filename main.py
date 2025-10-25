@@ -4,7 +4,7 @@ from report_manager import ReportManager
 from search_filter_manager import SearchFilterManager
 from savings_goal_manager import SavingsGoalManager
 from monthly_budget_manager import MonthlyBudgetManager
-
+from notification_manager import NotificationManager
 
 
 def main_menu():
@@ -14,7 +14,7 @@ def main_menu():
     sf = SearchFilterManager(um)
     sg = SavingsGoalManager(um)
     bm = MonthlyBudgetManager(um)
-
+    nm = NotificationManager(um)  #
 
     while True:
         print("\n=== PERSONAL FINANCE MANAGER ===")
@@ -29,6 +29,7 @@ def main_menu():
         print("9. Export to CSV")
         print("10. Savings Goals")
         print("11. Monthly Budget Management")
+        print("12. Notifications Center")  
         print("0. Exit")
 
         choice = input("Choose an option: ").strip()
@@ -40,7 +41,7 @@ def main_menu():
         elif choice == "3":
             um.show_current_user()
         elif choice == "4":
-            print("\n Registered Users:")
+            print("\nRegistered Users:")
             for i, u in enumerate(um.users, 1):
                 print(f"{i}. {u['username']}")
         elif choice == "5":
@@ -57,8 +58,10 @@ def main_menu():
             savings_menu(sg)
         elif choice == "11":
             budget_menu(bm)
+        elif choice == "12":
+            nm.check_notifications()  
         elif choice == "0":
-            print(" Goodbye!")
+            print("Goodbye!")
             break
         else:
             print("Invalid choice.")
@@ -86,7 +89,7 @@ def transaction_menu(tm):
         elif choice == "0":
             break
         else:
-            print(" Invalid choice.")
+            print("Invalid choice.")
 
 
 def report_menu(rm):
@@ -189,4 +192,3 @@ def budget_menu(bm):
 
 if __name__ == "__main__":
     main_menu()
-
