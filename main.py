@@ -3,6 +3,8 @@ from transaction_manager import TransactionManager
 from report_manager import ReportManager
 from search_filter_manager import SearchFilterManager
 from savings_goal_manager import SavingsGoalManager
+from monthly_budget_manager import MonthlyBudgetManager
+
 
 
 def main_menu():
@@ -11,6 +13,8 @@ def main_menu():
     rm = ReportManager(um)
     sf = SearchFilterManager(um)
     sg = SavingsGoalManager(um)
+    bm = MonthlyBudgetManager(um)
+
 
     while True:
         print("\n=== PERSONAL FINANCE MANAGER ===")
@@ -24,6 +28,7 @@ def main_menu():
         print("8. Search & Filter menu")
         print("9. Export to CSV")
         print("10. Savings Goals")
+        print("11. Monthly Budget Management")
         print("0. Exit")
 
         choice = input("Choose an option: ").strip()
@@ -50,6 +55,8 @@ def main_menu():
             um.data_manager.export_to_csv(um.users)
         elif choice == "10":
             savings_menu(sg)
+        elif choice == "11":
+            budget_menu(bm)
         elif choice == "0":
             print(" Goodbye!")
             break
@@ -162,5 +169,24 @@ def savings_menu(sg):
             print("Invalid choice.")
 
 
+def budget_menu(bm):
+    while True:
+        print("\n--- MONTHLY BUDGET MENU ---")
+        print("1. Set budget for a month")
+        print("2. View budget status")
+        print("0. Back to main menu")
+
+        c = input("Choose: ").strip()
+        if c == "1":
+            bm.set_budget()
+        elif c == "2":
+            bm.view_budget_status()
+        elif c == "0":
+            break
+        else:
+            print("Invalid choice.")
+
+
 if __name__ == "__main__":
     main_menu()
+
