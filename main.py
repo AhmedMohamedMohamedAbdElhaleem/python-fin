@@ -8,29 +8,30 @@ from notification_manager import NotificationManager
 
 
 def main_menu():
+    
     um = UserManager()
     tm = TransactionManager(um)
     rm = ReportManager(um)
     sf = SearchFilterManager(um)
     sg = SavingsGoalManager(um)
     bm = MonthlyBudgetManager(um)
-    nm = NotificationManager(um)  #
+    nm = NotificationManager(um)
 
     while True:
         print("\n=== PERSONAL FINANCE MANAGER ===")
-        print("1. Register new user")
-        print("2. Login")
-        print("3. Show current user")
-        print("4. View all users")
-        print("5. Switch user (re-login)")
-        print("6. Transactions menu")
-        print("7. Reports menu")
-        print("8. Search & Filter menu")
-        print("9. Export to CSV")
-        print("10. Savings Goals")
-        print("11. Monthly Budget Management")
-        print("12. Notifications Center")  
-        print("0. Exit")
+        print("1) Register new user")
+        print("2) Login")
+        print("3) Show current user")
+        print("4) View all users")
+        print("5) Switch user")
+        print("6) Transactions")
+        print("7) Reports")
+        print("8) Search & Filter")
+        print("9) Export to CSV")
+        print("10) Savings Goals")
+        print("11) Monthly Budget")
+        print("12) Notifications Center")
+        print("0) Exit")
 
         choice = input("Choose an option: ").strip()
 
@@ -59,22 +60,22 @@ def main_menu():
         elif choice == "11":
             budget_menu(bm)
         elif choice == "12":
-            nm.check_notifications()  
+            nm.check_notifications()
         elif choice == "0":
-            print("Goodbye!")
+            print("\nGoodbye! 👋")
             break
         else:
-            print("Invalid choice.")
+            print("Invalid choice, try again.")
 
 
 def transaction_menu(tm):
     while True:
-        print("\n--- TRANSACTIONS MENU ---")
-        print("1. Add income/expense")
-        print("2. View all transactions")
-        print("3. Edit transaction")
-        print("4. Delete transaction")
-        print("0. Back to main menu")
+        print("\n--- Transactions ---")
+        print("1) Add income/expense")
+        print("2) View all transactions")
+        print("3) Edit transaction")
+        print("4) Delete transaction")
+        print("0) Back")
 
         choice = input("Choose: ").strip()
 
@@ -94,26 +95,29 @@ def transaction_menu(tm):
 
 def report_menu(rm):
     while True:
-        print("\n--- REPORTS MENU ---")
-        print("1. Dashboard summary")
-        print("2. Monthly report")
-        print("3. Category breakdown")
-        print("4. Spending trends")
-        print("5. ASCII Visualization")
-        print("0. Back to main menu")
+        print("\n--- Reports ---")
+        print("1) Dashboard summary")
+        print("2) Monthly report")
+        print("3) Category breakdown")
+        print("4) Spending trends")
+        print("5) ASCII charts")
+        print("0) Back")
 
         choice = input("Choose: ").strip()
 
-        if choice == "1":
-            rm.dashboard_summary()
-        elif choice == "2":
-            rm.monthly_report()
-        elif choice == "3":
-            rm.category_breakdown()
-        elif choice == "4":
-            rm.spending_trends()
-        elif choice == "5":
-            rm.ascii_visualization()
+        
+        options = {
+            "1": rm.dashboard_summary,     
+            "2": rm.monthly_report,         
+            "3": rm.category_breakdown,      
+            "4": rm.spending_trends,         
+            "5": rm.ascii_visualization     
+        }
+
+        if choice in options:
+            print("\nGenerating report, please wait...\n")
+            options[choice]()
+            print("\nReport done ✔️")
         elif choice == "0":
             break
         else:
@@ -122,12 +126,12 @@ def report_menu(rm):
 
 def search_filter_menu(sf):
     while True:
-        print("\n--- SEARCH & FILTER MENU ---")
-        print("1. Search by date range")
-        print("2. Filter by category")
-        print("3. Filter by amount range")
-        print("4. Sort transactions")
-        print("0. Back to main menu")
+        print("\n--- Search & Filter ---")
+        print("1) Search by date range")
+        print("2) Filter by category")
+        print("3) Filter by amount range")
+        print("4) Sort transactions")
+        print("0) Back")
 
         choice = input("Choose: ").strip()
 
@@ -147,13 +151,13 @@ def search_filter_menu(sf):
 
 def savings_menu(sg):
     while True:
-        print("\n--- SAVINGS GOALS MENU ---")
-        print("1. Add goal")
-        print("2. View goals")
-        print("3. Allocate amount to goal")
-        print("4. Edit goal")
-        print("5. Delete goal")
-        print("0. Back to main menu")
+        print("\n--- Savings Goals ---")
+        print("1) Add goal")
+        print("2) View goals")
+        print("3) Allocate amount")
+        print("4) Edit goal")
+        print("5) Delete goal")
+        print("0) Back")
 
         c = input("Choose: ").strip()
         if c == "1":
@@ -174,10 +178,10 @@ def savings_menu(sg):
 
 def budget_menu(bm):
     while True:
-        print("\n--- MONTHLY BUDGET MENU ---")
-        print("1. Set budget for a month")
-        print("2. View budget status")
-        print("0. Back to main menu")
+        print("\n--- Monthly Budget ---")
+        print("1) Set budget")
+        print("2) View budget status")
+        print("0) Back")
 
         c = input("Choose: ").strip()
         if c == "1":

@@ -4,19 +4,7 @@ from datetime import datetime
 
 
 class SavingsGoalManager:
-    """
-    Manage savings goals for the current user.
-    Stores goals inside user dict under 'savings_goals'.
-    Each goal example:
-      {
-        "id": "<uuid>",
-        "name": "Buy Laptop",
-        "target_amount": "1500.00",
-        "saved_amount": "200.00",
-        "deadline": "2025-12-31" or "",
-        "created_at": "2025-10-24T21:00:00"
-      }
-    """
+
 
     def __init__(self, user_manager):
         self.user_manager = user_manager
@@ -89,7 +77,7 @@ class SavingsGoalManager:
 
         self.user_manager.current_user["savings_goals"].append(goal)
         self._save_users()
-        print(f"✅ Goal '{name}' added successfully (target {target:.2f}).")
+        print(f"Goal '{name}' added successfully (target {target:.2f}).")
 
     def view_goals(self):
         """List all goals with progress."""
@@ -186,7 +174,7 @@ class SavingsGoalManager:
         goals[idx]["saved_amount"] = str(existing_saved + amt)
 
         self._save_users()
-        print(f"💰 Allocated {amt:.2f} to goal '{goals[idx]['name']}'. Transaction recorded.")
+        print(f" Allocated {amt:.2f} to goal '{goals[idx]['name']}'. Transaction recorded.")
 
     def edit_goal(self):
         """Edit name, target amount, or deadline of a goal."""
@@ -234,4 +222,4 @@ class SavingsGoalManager:
                 print("Invalid date format. Keeping old value.")
 
         self._save_users()
-        print("✏️ Goal updated successfully.")
+        print(" Goal updated successfully.")

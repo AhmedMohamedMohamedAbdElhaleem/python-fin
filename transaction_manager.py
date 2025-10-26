@@ -28,7 +28,7 @@ class TransactionManager:
         date = date_str if date_str else datetime.date.today().isoformat()
 
         transaction = {
-            "id": str(uuid.uuid4()),  # unique ID
+            "id": str(uuid.uuid4()), 
             "type": t_type,
             "amount": amount,
             "category": category,

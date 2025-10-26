@@ -2,15 +2,7 @@ from datetime import datetime
 from decimal import Decimal, InvalidOperation
 
 class MonthlyBudgetManager:
-    """
-    Manage monthly budgets for each user.
-    Stores budgets inside user dict under 'monthly_budgets'.
-    Each budget:
-      {
-        "month": "2025-10",
-        "amount": "5000.00"
-      }
-    """
+
 
     def __init__(self, user_manager):
         self.user_manager = user_manager

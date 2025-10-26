@@ -34,12 +34,12 @@ class NotificationManager:
         goals = user.get("savings_goals", [])
         for g in goals:
             target = Decimal(g["target_amount"])
-            saved = Decimal(g.get("saved_amount", "0"))  # ✅ هنا التعديل
+            saved = Decimal(g.get("saved_amount", "0"))  
             if saved >= target:
                 notifications.append(f"🎉 Goal '{g['name']}' achieved!")
             elif saved >= target * Decimal("0.8"):
                 notifications.append(
-            f"💰 You're close to achieving your goal '{g['name']}' ({saved:.2f}/{target:.2f})"
+            f" You're close to achieving your goal '{g['name']}' ({saved:.2f}/{target:.2f})"
         )
 
         if notifications:

@@ -14,7 +14,7 @@ class DataManager:
     # Load data on startup
     def load_data(self):
         if not os.path.exists(self.file_path):
-            print("No saved data found. Starting fresh.")
+            print("No saved data found ")
             return []
 
         try:
@@ -26,7 +26,7 @@ class DataManager:
             print(" Corrupted data file. Starting new session.")
             return []
 
-    # 💾 Save to JSON (main)
+    #  Save to JSON (main)
     def save_data(self, users):
         try:
             with open(self.file_path, "w", encoding="utf-8") as f:
